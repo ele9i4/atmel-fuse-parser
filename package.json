@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "devDependencies": {},
+  "dependencies": {
+    "glob": "^7.1.6"
+  }
+}
