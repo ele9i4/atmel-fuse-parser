@@ -51,10 +51,12 @@ function convertFile (fileName) {
 
   function parseFuseReg (register) {
     const name = register.match (/<register\s.*?name="(.+?)"/)[1];
+    const initval = register.match (/<register\s.*?initval="(.+?)"/)[1];
     const bitFields = register.match (/<bitfield\s.+?\/>/g)
       .map (parseBitField);
     return {
       name,
+      initval,
       bitFields
     }
   }
@@ -87,7 +89,7 @@ glob ('./atdf/*.atdf', {} , function (er, files) {
       console.log ('Parsing:', getFileName (file));
       return convertFile (getFileName (file));
     });
-    fs.writeFileSync ('./list.json', JSON.stringify (files.map (getFileName)));
-    fs.writeFileSync ('./data.json', JSON.stringify (jsonArr));
+    fs.writeFileSync ('./list.json', JSON.stringify (files.map (getFileName), null, 2));
+    fs.writeFileSync ('./data.json', JSON.stringify (jsonArr, null, 2));
   }
 });
