@@ -65,7 +65,7 @@ function convertFile (fileName) {
   const matchArray = data.match (reMatch);
   const name = matchArray[1];
   const fuses = matchArray[2];
-  const valueGroups = fuses.match (reValueGroup)
+  let valueGroups = (fuses.match (reValueGroup) || [])
     .map (parseValueGroup)
   const fuseRegs = fuses.match (reFuseRegister)
     .map (parseFuseReg);
@@ -93,3 +93,5 @@ glob ('./atdf/*.atdf', {} , function (er, files) {
     fs.writeFileSync ('./data.json', JSON.stringify (jsonArr, null, 2));
   }
 });
+
+// console.log (convertFile ('Attiny10'));
